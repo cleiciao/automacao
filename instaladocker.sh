@@ -67,7 +67,7 @@ usermod -aG docker zabbix
 #sed -i 's/#Server=.*/Server=zabbix.you.solutions,172.17.0.0/16' /etc/zabbix/zabbix_agent2.conf
 #sed -i 's/#Hostname=.*/Hostname='$HOSTNAME'/' /etc/zabbix/zabbix_agent2.conf
 
-#### RODA O CONTAINER COM HOSTNAME E SERVIDOR DA YOUISP
+#### RODA O CONTAINER
 #docker run --name some-zabbix-proxy-sqlite3 -e ZBX_PROXYMODE=0 -e ZBX_HOSTNAME=$HOSTNAME -e ZBX_SERVER_HOST= -e ZBX_CONFIGFREQUENCY=60 -e ZBX_DATASENDERFREQUENCY=24 -e ZBX_STARTPOLLERS=100 -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys -v /usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts -e ZBX_CACHESIZE=2G -e ZBX_HISTORYCACHESIZE=512M -e ZBX_HISTORYINDEXCACHESIZE=512M -e ZBX_ENABLEREMOTECOMMANDS=1 -d zabbix/zabbix-proxy-sqlite3:alpine-5.2-latest
 
 #docker update --restart always some-zabbix-proxy-sqlite3
