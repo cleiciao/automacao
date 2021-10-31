@@ -1,7 +1,12 @@
 #!/bin/bash
+#Autor: Cleicião Diego Moro
+#e-mail: cleiciaodiego@gmail.com
 #o script altera  a rota do servidor quando ele é inicializado.
+#Aqui criei ele como um serviço para que possa habilitar/desabilitar iniciar restartar e dar stop no mesmo.
 #
-#o comando abaixo vai adicionar uma nova rota, bastando somente alterar os IPs para seu cenario
+#o comando abaixo vai adicionar uma nova rota, bastando somente alterar os IPs para seu cenario, ele ficara dentro de um script
+#no diretório /opt/ para utilizar basta alterar os IPs para o seu cenário.
+
 route del default ip route add x.x.x.x/x via xxx.xxx.xxx.xxx src xxx.xxx.xxx.xxx
 
 
