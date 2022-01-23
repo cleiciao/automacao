@@ -24,7 +24,7 @@ apt update
 
 echo "Agora iremos instalar o Mysql"
 
-apt install -y mysql-server
+apt install -y mysql-server 
 
 echo "Verificando se o serviço foi instalado."
 mysql --version 
