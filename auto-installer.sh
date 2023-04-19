@@ -36,6 +36,7 @@ echo "Instalando pacotes..."
 wget https://repo.zabbix.com/zabbix/5.0/debian/pool/main/z/zabbix-release/zabbix-release_5.0-2+debian11_all.deb
 dpkg -i zabbix-release_5.0-2+debian11_all.deb
 apt update; apt install -y  vim neofetch net-tools tcpdump open-vm-tools fail2ban sudo snmp zabbix-agent || error "Falha ao instalar os pacotes!"
+rm -rf zabbix*
 sleep 5
 clear
 # Alterar a porta SSH para 44044
