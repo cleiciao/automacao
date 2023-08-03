@@ -1,6 +1,6 @@
 #/bin/bash
 #Desenvolvido por: Cleicião Diego Moro
-#e-mail: cmoro@youisp.com.br
+#e-mail: cleiciaodiego@gmail.com
 
 # Função para exibir mensagens de erro
 error() {
