@@ -32,7 +32,7 @@ chmod +x  /opt/bkp-pg.sh
 
 #Depois é só agendar no crontab
 
-42 9   * * *   root    /opt/bkp-pg.sh
+echo "42 9   * * *   root    /opt/bkp-pg.sh" >> /etc/crontab
 
 #Conteúdo do script
 ===============================================================================
