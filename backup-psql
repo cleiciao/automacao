@@ -1,0 +1,69 @@
+===============================================================================
+
+#Passo a passo para realizar backup do PGSQL
+#Esse passo a passo não mostra como instalar o PSQL
+
+#1º Criar um usuário para backup, usuário e senha fica a criterio do utilizador. 
+CREATE USER meuusuario WITH PASSWORD 'minhasenha';
+
+
+#2º criar um arquivo .pgpass para armazenar as credenciais, o diretorio do arquivo pode ser de sua escolha o mesmo ficará oculto.
+
+vim ~/.pgpass 
+
+#Ajustando as permissões do arquivo.
+
+chmod 600 ~/.pgpass 
+
+#Edite o arquivo e insira o conteúdo abaixo
+#Conteúdo do arquivo
+
+localhost:5432:netbox:meuusuario:minhasenha
+
+
+
+#Crie o arquivo do script no diretorio desejado.
+
+vim /opt/bkp-pg.sh
+
+
+#Após colar o contéudo do script aplique a permissão de execução
+chmod +x  /opt/bkp-pg.sh
+
+#Depois é só agendar no crontab
+
+42 9   * * *   root    /opt/bkp-pg.sh
+
+#Conteúdo do script
+===============================================================================
+
+#!/bin/bash
+# Script para backup remoto do PostgreSQL
+
+# Variáveis para o backup em nuvem
+dir_remoto="/mnt/nas/backuppg/netbox"  # diretório do NAS montado na máquina
+log_file="/var/log/backup-pg.log"      # log para acompanhamento
+
+
+export PGPASSFILE=/root/.pgpass
+
+
+# Remove backups mais antigos que 10 dias
+find "$dir_remoto" -type f -name "*.sql" -mtime +10 -exec rm -f {} \;
+
+# Gera nome de arquivo
+backup_file="${dir_remoto}/netbox_$(date +'%Y-%m-%d_%H-%M-%S').sql"
+
+# Executa backup
+echo "$(date +'%F %T') Iniciando backup para $backup_file" >> "$log_file"
+pg_dump -h localhost -U netbox -d netbox  > "$backup_file" 2>> "$log_file"
+
+# Verifica se deu certo
+if [ $? -eq 0 ]; then
+    echo "$(date +'%F %T') Backup concluído com sucesso" >> "$log_file"
+else
+    echo "$(date +'%F %T') ERRO no backup do banco" >> "$log_file"
+fi
+
+
+===============================================================================
